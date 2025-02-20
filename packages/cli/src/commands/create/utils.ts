@@ -98,11 +98,12 @@ export const createMastraProject = async () => {
 
   s.stop('NPM dependencies installed');
   s.start('Installing mastra');
-  await execWithTimeout(`npm i -D mastra@latest`);
+  const versionTag = process.env.MASTRA_VERSION_TAG ? `@${process.env.MASTRA_VERSION_TAG}` : '@latest';
+  await execWithTimeout(`npm i -D mastra${versionTag}`);
   s.stop('mastra installed');
 
   s.start('Installing @mastra/core');
-  await execWithTimeout(`npm i @mastra/core@latest`);
+  await execWithTimeout(`npm i @mastra/core${versionTag}`);
   s.stop('@mastra/core installed');
 
   s.start('Adding .gitignore');
